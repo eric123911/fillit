@@ -14,6 +14,9 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 # define ABS(x) ((x < 0) ? x * -1 : x)
+# define BUFF_SIZE 1
+# include <sys/types.h>
+# include <sys/uio.h>
 # include <string.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -24,6 +27,13 @@ typedef struct	s_list
 	size_t			content_size;
 	struct s_list	*next;
 }				t_list;
+
+typedef struct          s_gnline
+{
+        int                             fd;
+        char                    *tmp;
+        struct s_gnline *next;
+}                                       t_gnline;
 
 int				ft_abs(int i);
 int				ft_atoi(const char *str);
@@ -104,5 +114,6 @@ char			*ft_strtrim(char const *s);
 void			ft_swap(int *a, int *b);
 int				ft_tolower(int c);
 int				ft_toupper(int c);
+int				get_next_line(const int fd, char **line);
 
 #endif
