@@ -1,5 +1,6 @@
 a.out
 fillit
+*.swp
 *.o
 libft.a
 *.pdf

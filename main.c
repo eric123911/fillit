@@ -25,10 +25,12 @@ int main(int ac, char **av)
     if (ac != 2)
         return (1);
     list = ft_read(av[1]);
+	/*
 	while (list->next)
 	{
 		printf("%s\n",list->str);
 		list = list->next;
-	}
+	}*/
+	printf("%c\n", validate_file(list));
     return (0);
 }

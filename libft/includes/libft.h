@@ -6,7 +6,7 @@
 /*   By: eschnell <eschnell@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/21 17:25:54 by eschnell     #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/14 14:38:41 by eschnell    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/10/25 16:09:49 by eschnell    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -81,6 +81,7 @@ void			ft_putstr(char const *s);
 void			ft_putstr_fd(char const *s, int fd);
 char			*ft_strcat(char *dest, const char *src);
 char			*ft_strccat(char *dest, const char *src, int c);
+size_t			ft_strccount(const char *s, char c);
 char			*ft_strchr(const char *s, int c);
 char			*ft_strcjoin(char const *s1, char const *s2, int c);
 void			ft_strclr(char *s);

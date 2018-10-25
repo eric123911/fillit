@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   fillit.h                                         .::    .:/ .      .::   */
+/*   ft_strccount.c                                   .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: eschnell <eschnell@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/10/25 11:50:42 by matheme      #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/25 16:22:32 by eschnell    ###    #+. /#+    ###.fr     */
+/*   Created: 2018/10/25 16:02:34 by eschnell     #+#   ##    ##    #+#       */
+/*   Updated: 2018/10/25 16:08:38 by eschnell    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef FILLIT_H
-# define FILLIT_H
+#include "libft.h"
 
-# include "libft/includes/libft.h"
-# include <fcntl.h>
-# include <stdio.h>
-
-typedef struct			p_list
+size_t  ft_strccount(const char *s, char c)
 {
-	char				*str;
-	struct p_list		*next;
-	struct p_list		*prev;
-}						f_list;
+    size_t  i;
+    size_t  j;
 
-char    validate_file(const f_list *list);
-
-#endif
+    i = -1;
+    j = 0;
+    while (s[++i])
+        if (s[i] == c)
+            j++;
+    return (j);
+}
