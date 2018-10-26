@@ -2,7 +2,7 @@
 
 set -o errexit
 
-gcc -Wall -Werror -Wextra -o fillit \
+gcc -g3 -Wall -Werror -Wextra -o fillit \
 	main.c \
 	error.c \
 	libft/libft.a
