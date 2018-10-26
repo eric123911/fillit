@@ -1,2 +1,8 @@
 #!/bin/sh
-gcc -Wall -Werror -Wextra main.c libft/libft.a
+
+set -o errexit
+
+gcc -Wall -Werror -Wextra -o fillit \
+	main.c \
+	error.c \
+	libft/libft.a
