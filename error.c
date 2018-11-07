@@ -6,7 +6,7 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/24 17:53:48 by eschnell     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/07 16:33:58 by eschnell    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/07 17:34:22 by eschnell    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,21 +29,20 @@ static char	validate_file_len(const f_list *list)
 	{
 		p = 0;
 		d = 0;
-		while (list->next && ++i % 5)
+		while (list && ++i % 5)
 		{
 			p += ft_strccount(list->str, '.');
 			d += ft_strccount(list->str, '#');
-			if (ft_strlen(list->str) != 4)
+			if (ft_strlen(list->str) != 5)
 				return (1);
 			list = list->next;
 		}
-		if ((i % 5 && ft_strcmp(list->str, "\0")) || !(p == 12 && d == 4))
+		if (i % 5 || !(p == 12 && d == 4))
 			return (1);
 		if (list->next)
 			list = list->next;
 	}
-	return ((!ft_strcmp(list->str, "\0") &&
-				ft_strcmp(list->prev->str, "\0")) ? 0 : 1);
+	return (ft_strcmp(list->prev->str, "\n") ? 0 : 1);
 }
 
 /*
@@ -95,8 +94,8 @@ static char	validate_patter(const f_list *list)
 		{
 			if (list->prev && list->next)
 			{
-				if (find_neighbour(list->prev->str, list->str,
-								list->next->str, i))
+				if (find_neighbour(list->prev->str,
+									list->str, list->next->str, i))
 					return (1);
 			}
 			else if (list->prev)
@@ -123,9 +122,15 @@ char		validate_file(const f_list *list)
 	if (!list)
 		return (1);
 	else if (validate_file_len(list))
+	{
+		printf("ok");
 		return (1);
+	}
 	else if (validate_patter(list))
+	{
+		printf("je suis passe par la");
 		return (1);
+	}
 	else
 		return (0);
 }
