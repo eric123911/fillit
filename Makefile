@@ -5,7 +5,7 @@ CFLAGS = -Wall -Werror -Wextra
 
 NAME = fillit
 
-SRC = main.c fillit.c error.c libft/libft.a
+SRC = main.c fillit.c error.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -13,7 +13,7 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-		$(CC) -o $(NAME) $(OBJ)
+		$(CC) -I. -L./libft -lft -o $(NAME) $(OBJ)
 
 $(OBJ):
 		$(CC) $(CFLAGS) -c $(SRC)
