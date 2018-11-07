@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   fillit.h                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: eschnell <eschnell@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/25 11:50:42 by matheme      #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/26 14:01:11 by eschnell    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/10/29 16:56:06 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,5 +28,6 @@ typedef struct			p_list
 }						f_list;
 
 char    validate_file(const f_list *list);
+char	**fillit(const f_list *list);
 
 #endif

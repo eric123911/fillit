@@ -5,7 +5,7 @@ CFLAGS = -Wall -Werror -Wextra
 
 NAME = fillit
 
-SRC = main.c fillit.c error.c
+SRC = main.c fillit.c error.c libft/libft.a
 
 OBJ = $(SRC:.c=.o)
 
