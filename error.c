@@ -6,7 +6,7 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/24 17:53:48 by eschnell     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/07 17:34:22 by eschnell    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/07 18:57:21 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -52,10 +52,9 @@ static char	validate_file_len(const f_list *list)
 
 static char	find_neighbour(char *s1, char *s2, char *s3, size_t i)
 {
-	size_t			n;
+	static size_t	n = 0;
 	static size_t	count = 0;
 
-	n = 0;
 	if (s2[i] == '#')
 	{
 		if (i > 0)
@@ -71,10 +70,10 @@ static char	find_neighbour(char *s1, char *s2, char *s3, size_t i)
 			if (s3[i] == '#')
 				n++;
 		count++;
-		if ((n == 1 && (count % 4 == 1 || count % 4 == 0)) ||
-			(n == 2 && (count % 4 == 2 || count % 4 == 3)))
-			return (0);
-		return (1);
+		if (count % 4 == 0 && !(n == 6 || n == 8))
+			return (1);
+		if (n >= 6 && count % 4 == 0)
+			n = 0;
 	}
 	return (0);
 }
@@ -122,15 +121,9 @@ char		validate_file(const f_list *list)
 	if (!list)
 		return (1);
 	else if (validate_file_len(list))
-	{
-		printf("ok");
 		return (1);
-	}
 	else if (validate_patter(list))
-	{
-		printf("je suis passe par la");
 		return (1);
-	}
 	else
 		return (0);
 }
