@@ -3,6 +3,7 @@ fillit
 *.swp
 *.o
 *.so
+*.a
 libft.a
 *.pdf
 *~
