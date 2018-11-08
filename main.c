@@ -1,5 +1,11 @@
 #include "fillit.h"
 
+int		error(void)
+{
+	ft_putendl("error");
+	return (0);
+}
+
 f_list	*ft_read(char *av)
 {
 	int f;
@@ -20,7 +26,7 @@ f_list	*ft_read(char *av)
 	return (begin);
 }
 
-int main(int ac, char **av)
+int		main(int ac, char **av)
 {
 	f_list	*list;
     //char **tab;
@@ -30,10 +36,7 @@ int main(int ac, char **av)
         return (1);
     list = ft_read(av[1]);
 	if (validate_file(list))
-	{
-		ft_putstr("error\n");
-		return (1);
-	}
+		return (error());
 	/*tab = fillit(list);
 	i = -1;
 	while (tab[++i])
