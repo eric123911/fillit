@@ -2,8 +2,11 @@
 
 #set -o errexit
 
-excut=$(ls ./fillit)
-test_files=$(ls ./examples/*)
+NOM_FICHIER_EXECT="./fillit"
+NOM_DOSSIER_TESTS="./examples"
+
+excut=$(ls ${NOM_FICHIER_EXECT})
+test_files=$(ls ${NOM_DOSSIER_TESTS}/*)
 
 # Verify that execuable exists
 if [[ ($excut != "./fillit") ]]; then
