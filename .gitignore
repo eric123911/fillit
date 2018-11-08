@@ -2,6 +2,7 @@ a.out
 fillit
 *.swp
 *.o
+*.so
 libft.a
 *.pdf
 *~
