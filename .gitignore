@@ -1,5 +1,5 @@
-a.out
-fillit
+./a.out
+./fillit
 *.swp
 *.o
 *.so
