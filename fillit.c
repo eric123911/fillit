@@ -6,7 +6,7 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/29 16:53:07 by matheme      #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/31 17:23:05 by matheme     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/13 14:23:42 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,149 +15,149 @@
 
 // la variable size correspond à la taille du carré actuel
 
-static char	**ft_tab_malloc(size_t size)
-{
-	size_t i;
-	char **tab;
-
-	i = 0;
-	if (!(tab = (char**)malloc(sizeof(char*) * (size + 1))))
-		return (NULL);
-	while (i < size)
-	{
-		if(!(tab[i] = ft_strnew(size)))
-			return (NULL);
-		i++;
-	}
-	tab[i] = NULL;
-	return (tab);
-}
-
-void	set_offset(int *offset_x, int *offset_Y, int x, int y)
-{
-			*offset_x = x;
-			*offset_Y = y;
-}
-
-int		fill_as_possible(char *str, char ***tab, int (*ofs)[], size_t realmode)
-{
-	int *x;
-	int *c_x;
-	int *c_y;
-
-	x = &(*ofs)[2];
-	c_x = &(*ofs)[1];
-	c_y = &(*ofs)[4];
-	while (str[*x])
-	{
-		if (str[*x] == '#')
-		{
-			if (*c_x == -1)
-				set_offset(c_x, c_y, *x, (*ofs)[5]);
-			if (*x - *c_x + (*ofs)[0] >= (*ofs)[6])
-				return (3); // arriver au bout de l'axe X
-			if ((*ofs)[5] - *c_y + (*ofs)[3] >= (*ofs)[6])
-				return (2); // arriver au bout de l'axe Y; implique un reset total et size++;
-			if ((*tab)[(*ofs)[5] - *c_y + (*ofs)[3]][*x - *c_x + (*ofs)[0]] != 0)
-				return (1); // case déja utilisé
-			if (realmode == 1)
-				(*tab)[(*ofs)[5] - *c_y + (*ofs)[3]][*x - *c_x + (*ofs)[0]] = (*ofs)[7];
-		}
-		(*x)++;
-	}
-	*x = 0;
-	return (0);
-}
-
-const f_list		*call_algo(const f_list *list, int (*offset)[], char ***tab)
-{
-	size_t four; // lis les 4 ligne correspondant au tretriminos
-	f_list *begin;
-	int temp;
-	
-	four = 4;
-	begin = (f_list*)list;
-	while (four--) // lecture du tretriminos
-	{	
-		if((temp = fill_as_possible(list->str, tab, offset, 0)))
-			(*offset)[8] = temp;
-		(*offset)[5]++;
-		list = list->next;
-	}
-	if ((*offset)[8] == 0)
-	{
-		(*offset)[5] = 0;
-		while (four-- + 5) // lecture du tretriminos
-		{	
-			fill_as_possible(begin->str, tab, offset, 1);
-			(*offset)[5]++;
-			begin = begin->next;
-		}
-	}
-	(*offset)[5] = 0;
-	return (list); // sortie 0 de la fonction la tretriminos à bien été placé
-}
-
 char **		replace0(char **tab, int size)
 {
 	int i;
 	int j;
 
 	i = -1;
+	if (!tab)
+		return (NULL);
 	while (++i < size)
 	{
 		j = -1;
 		while (++j < size)
 		{
 			if (tab[i][j] == '\0')
-				tab[i][j] = ' ';
+				tab[i][j] = '.';
 		}
 	}
 	return (tab);
 }
 
-char		**fillit(const f_list *list)
+void	get_index_of_tetriminos(const f_list *list, size_t (*index)[8])
 {
-	char **result;
-	f_list *begin;
+	size_t	four;
+	size_t	count;
+	size_t	i;
+	size_t	j;
 
-	//              G_X  C_X X G_Y C_Y Y SIZE C  RETN
-	int offset[9] = {0 , -1, 0, 0, -1, 0, 2, 'A', 0};
-
-	begin = (f_list*)list;
-	result = ft_tab_malloc(offset[6]);
-	while (list) // fin du fichier ?
+	(*index)[0] = 0;
+	(*index)[1] = 0;
+	four = 4;
+	j = 0;
+	count = 0;
+	while (four--)
 	{
-		list = call_algo(list, &offset , &result); // non
-		fflush(stdout);
-		if (offset[8] != 0)
-			list = list->prev->prev->prev->prev;
-		else
+		i = -1;
+		while (list->str[++i])
+			if (list->str[i] == '#')
+			{
+				count += 2;
+				(*index)[count - 2] = j - (*index)[0];
+				(*index)[count - 1] = i - (*index)[1];
+			}
+		j++;
+		list = list->next;
+	}
+	(*index)[0] = 0;
+	(*index)[1] = 0;
+}
+int		can_put_down(char **result ,const size_t index[8],const size_t size,const size_t offset[2])
+{
+	size_t four;
+	size_t id;
+
+	four = 4;
+	id = 0;
+	while (four--)
+	{
+		if (offset[0] + index[id] >= size) // au bout de l'axe Y
+			return (2);
+		else if (offset[1] + index[id + 1] >= size) // au bout de l'axe X
+			return (3);
+		else if (result[offset[0] + index[id]][offset[1] + index[id + 1]])
+			return (1); // un tetriminos est déjà présent
+		id += 2;
+	}
+	return (0);
+}
+
+char **put_down(const size_t index[8], char **result, size_t offset[2], char c)
+{
+	size_t four;
+	size_t id;
+
+	id = 0;
+	four = 4;
+	while (four--)
+	{
+		result[offset[0] + index[id]][offset[1] + index[id + 1]] = c;
+		id += 2;
+	}
+	return (result);
+}
+
+char **take_up(const size_t index[8], char **result, size_t offset[2])
+{
+	size_t four;
+	size_t id;
+
+	id = 0;
+	four = 4;
+	while (four--)
+	{
+		result[offset[0] + index[id]][offset[1] + index[id + 1]] = '\0';
+		id += 2;
+	}
+	return (result);
+}
+
+size_t	algorithme(const size_t index[8], char **result, size_t size, size_t (*offset)[2])
+{
+	size_t	res;
+
+	while ((res = can_put_down(result, index,  size, *offset)))
+	{
+		if (res == 1) // si jamais un tetriminos est déjà present
+			(*offset)[1]++;
+		if (res == 3) // X
 		{
-			list = list->next; // on reboucle et permet de zapper la ligne /n apres un tretriminos
-			offset[7]++;
+			(*offset)[1] = 0;
+			(*offset)[0]++;
 		}
-		if (offset[8] == 1)
-			offset[3]++;
-		if (offset[8] == 2)
-		{
-			offset[0]++;
-			offset[3] = 0;;
-		}
-		
-		if (offset[8] == 3)
-		{
-			list = begin;
-			offset[3] = 0;
-			offset[7] = 'A';
-			offset[0] = 0;
-			offset[6]++;
-			result = ft_tab_malloc(offset[6]);
-		}
-		offset[8] = 0;
-		offset[1] = -1; //remise a zero des offsets X_c;
-		offset[4] = -1;// remise a zero des offsets Y_c;
+		if (res == 2)
+			return (2);
 	}
 
-	return (replace0(result, offset[6])); // oui
+	return (0);
+}
+
+char	**fillit(const f_list *list, size_t size, char c, char **result)
+{
+	size_t	offset[2];
+	size_t	index[8];
+	int		res;
+	char	**temp;
+
+	res = 0;
+	temp = NULL;
+	offset[0] = 0; // y
+	offset[1] = 0; // x
+	if (!list)
+		return (replace0(result, size));
+	get_index_of_tetriminos(list, &index);
+	while (temp == NULL &&  offset[0] < size)
+	{
+		res = algorithme(index, result, size, &offset);
+		if (res == 0)
+		{
+			result = put_down(index, result, offset, c);
+			if ((temp = fillit(list->next->next->next->next->next, size, c + 1, result)))
+				return (temp);
+			result = take_up(index, result, offset);
+		}
+		offset[1]++;
+	}
+	return (NULL);
 }
