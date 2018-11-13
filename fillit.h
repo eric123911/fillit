@@ -20,15 +20,23 @@
 
 # include <stdio.h>
 
-typedef struct		p_list
+typedef struct			p_list
 {
-	char			*str;
-	struct p_list	*next;
-	struct p_list	*prev;
-}					f_list;
+	char				*str;
+	struct p_list		*next;
+	struct p_list		*prev;
+}						f_list;
 
-int					error(void);
-char				validate_file(const f_list *list);
-char				**fillit(const f_list *lst, size_t size, char c, char **res);
-char				**ft_tab_malloc(size_t size);
+typedef struct			i_list
+{
+	int					index[8];
+	struct i_list		*next;
+	struct i_list		*prev;
+}						index_list;
+
+int						error(void);
+char					validate_file(const f_list *list);
+char					**fillit(const index_list *lst, size_t size, char c, char **res);
+char					**ft_tab_malloc(size_t size);
+void					get_index_of_tetriminos(const f_list *list, int (*index)[8]);
 #endif

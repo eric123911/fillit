@@ -35,12 +35,12 @@ char **		replace0(char **tab, int size)
 	return (tab);
 }
 
-void	get_index_of_tetriminos(const f_list *list, size_t (*index)[8])
+void	get_index_of_tetriminos(const f_list *list, int (*index)[8])
 {
 	size_t	four;
 	size_t	count;
-	size_t	i;
-	size_t	j;
+	int		i;
+	int		j;
 
 	(*index)[0] = 0;
 	(*index)[1] = 0;
@@ -63,7 +63,8 @@ void	get_index_of_tetriminos(const f_list *list, size_t (*index)[8])
 	(*index)[0] = 0;
 	(*index)[1] = 0;
 }
-int		can_put_down(char **result ,const size_t index[8],const size_t size,const size_t offset[2])
+
+int		can_put_down(char **result ,const int index[8],const size_t size,const size_t offset[2])
 {
 	size_t four;
 	size_t id;
@@ -83,7 +84,7 @@ int		can_put_down(char **result ,const size_t index[8],const size_t size,const s
 	return (0);
 }
 
-char **put_down(const size_t index[8], char **result, size_t offset[2], char c)
+char **put_down(const int index[8], char **result, size_t offset[2], char c)
 {
 	size_t four;
 	size_t id;
@@ -98,7 +99,7 @@ char **put_down(const size_t index[8], char **result, size_t offset[2], char c)
 	return (result);
 }
 
-char **take_up(const size_t index[8], char **result, size_t offset[2])
+char **take_up(const int index[8], char **result, size_t offset[2])
 {
 	size_t four;
 	size_t id;
@@ -113,7 +114,7 @@ char **take_up(const size_t index[8], char **result, size_t offset[2])
 	return (result);
 }
 
-size_t	algorithme(const size_t index[8], char **result, size_t size, size_t (*offset)[2])
+size_t	algorithme(const int index[8], char **result, size_t size, size_t (*offset)[2])
 {
 	size_t	res;
 
@@ -133,10 +134,9 @@ size_t	algorithme(const size_t index[8], char **result, size_t size, size_t (*of
 	return (0);
 }
 
-char	**fillit(const f_list *list, size_t size, char c, char **result)
+char	**fillit(const index_list *list, size_t size, char c, char **result)
 {
 	size_t	offset[2];
-	size_t	index[8];
 	int		res;
 	char	**temp;
 
@@ -146,16 +146,15 @@ char	**fillit(const f_list *list, size_t size, char c, char **result)
 	offset[1] = 0; // x
 	if (!list)
 		return (replace0(result, size));
-	get_index_of_tetriminos(list, &index);
 	while (temp == NULL &&  offset[0] < size)
 	{
-		res = algorithme(index, result, size, &offset);
+		res = algorithme(list->index, result, size, &offset);
 		if (res == 0)
 		{
-			result = put_down(index, result, offset, c);
-			if ((temp = fillit(list->next->next->next->next->next, size, c + 1, result)))
+			result = put_down(list->index, result, offset, c);
+			if ((temp = fillit(list->next, size, c + 1, result)))
 				return (temp);
-			result = take_up(index, result, offset);
+			result = take_up(list->index, result, offset);
 		}
 		offset[1]++;
 	}
