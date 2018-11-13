@@ -19,6 +19,7 @@ if [[ ($excut != "./fillit") ]]; then
 	sleep 3
 fi
 
+excut=$(ls ${NOM_FICHIER_EXECT})
 j=1
 echo
 for i in $test_files; do
