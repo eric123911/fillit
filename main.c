@@ -6,7 +6,7 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/12 13:18:47 by matheme      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/13 14:23:21 by matheme     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/13 14:45:51 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -81,7 +81,7 @@ int		main(int ac, char **av)
 	char	**tab;
 	size_t	size;
 
-	size = 4;
+	size = 2;
 	if (ac != 2)
 		return (1);
 	list = ft_read(av[1]);

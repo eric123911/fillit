@@ -6,7 +6,7 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/29 16:53:07 by matheme      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/13 14:23:42 by matheme     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/13 14:46:48 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -159,5 +159,7 @@ char	**fillit(const f_list *list, size_t size, char c, char **result)
 		}
 		offset[1]++;
 	}
+	if (list->prev == NULL && offset[0] >= size)
+		return (fillit(list, size + 1, 'A', ft_tab_malloc(size + 1)));
 	return (NULL);
 }
