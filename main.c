@@ -6,18 +6,12 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/12 13:18:47 by matheme      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/13 14:45:51 by matheme     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/13 15:50:57 by eschnell    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "fillit.h"
-
-int		error(void)
-{
-	ft_putendl("error");
-	return (0);
-}
 
 void	ft_put_tab(char **tab)
 {
@@ -75,15 +69,25 @@ char	**ft_tab_malloc(size_t size)
 	return (tab);
 }
 
-int		main(int ac, char **av)
+size_t	map_size(short d)
+{
+	size_t	res;
+
+	res = ft_sqrt(d);
+	return ((res * res == (size_t)d) ? res : res + 1);
+}
+
+int		main(void)//int ac, char **av)
 {
 	f_list	*list;
 	char	**tab;
 	size_t	size;
 
+	//printf("%zu\n", map_size(_____));
+
 	size = 2;
 	if (ac != 2)
-		return (1);
+		return (1); 	// <========== FAT USAGE A METTER ICI
 	list = ft_read(av[1]);
 	if (validate_file(list))
 		return (error());

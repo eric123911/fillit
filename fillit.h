@@ -6,7 +6,7 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/25 11:50:42 by matheme      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/13 14:45:52 by matheme     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/13 15:50:10 by eschnell    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,14 +20,15 @@
 
 # include <stdio.h>
 
-typedef struct			p_list
+typedef struct		p_list
 {
-	char				*str;
-	struct p_list		*next;
-	struct p_list		*prev;
-}						f_list;
+	char			*str;
+	struct p_list	*next;
+	struct p_list	*prev;
+}					f_list;
 
-char    validate_file(const f_list *list);
-char	**fillit(const f_list *list, size_t size, char c, char **result);
-char	**ft_tab_malloc(size_t size);
+int					error(void);
+char				validate_file(const f_list *list);
+char				**fillit(const f_list *lst, size_t size, char c, char **res);
+char				**ft_tab_malloc(size_t size);
 #endif

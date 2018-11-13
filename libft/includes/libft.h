@@ -6,7 +6,7 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/21 17:25:54 by eschnell     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/07 14:44:27 by eschnell    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/13 15:21:50 by eschnell    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,6 +35,7 @@ typedef struct         s_gnline
 	struct s_gnline 	*next;
 }						t_gnline;
 
+int					ft_sqrt(int nb);
 int					ft_abs(int i);
 int					ft_atoi(const char *str);
 void				ft_bcopy(const void *src, void *dst, size_t len);
