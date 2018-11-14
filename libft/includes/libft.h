@@ -6,7 +6,7 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/09/21 17:25:54 by eschnell     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/14 18:10:45 by matheme     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/14 18:26:31 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -71,7 +71,7 @@ int						ft_memcmp(const void *s1, const void *s2, size_t n);
 void					*ft_memcpy(void *dst, const void *src, size_t n);
 void					ft_memdel(void **ap);
 void					*ft_memmove(void *dst, const void *src, size_t len);
-void					ft_memrcpy(void *dst, const void *src, size_t n);
+void					*ft_memrcpy(void *dst, const void *src, size_t n);
 void					*ft_memset(void *b, int c, size_t len);
 void					ft_putchar(char c);
 void					ft_putchar_fd(char c, int fd);

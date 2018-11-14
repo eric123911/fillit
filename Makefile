@@ -6,7 +6,7 @@
 #    By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/11/13 14:34:18 by eschnell     #+#   ##    ##    #+#        #
-#    Updated: 2018/11/14 17:18:35 by matheme     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/11/14 18:30:38 by matheme     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -22,7 +22,7 @@ SRC = main.c fillit.c error.c utils.c
 OBJ = $(SRC:.c=.o)
 
 
-all: $(NAME)
+all: lib $(NAME)
 
 $(NAME): $(OBJ)
 		$(CC) -I. -L./libft -lft -o $(NAME) $(OBJ)
@@ -30,10 +30,14 @@ $(NAME): $(OBJ)
 $(OBJ):
 		$(CC) $(CFLAGS) -c $(SRC)
 
+lib:
+		make -C libft/ re
+		make -C libft/ clean
+
 clean:
 		rm -f *.o
 
 fclean: clean
-		rm -f $(NAME)
+		rm -f $(NAME) libft/libft.a
 
 re: fclean all

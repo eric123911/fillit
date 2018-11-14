@@ -1,17 +1,19 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   free_flist			                              .::    .:/ .      .::   */
+/*   free_flist.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: eschnell <eschnell@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: matheme <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/11/14 18:02:12 by eschnell     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/14 18:04:18 by eschnell    ###    #+. /#+    ###.fr     */
+/*   Created: 2018/11/14 18:35:27 by matheme      #+#   ##    ##    #+#       */
+/*   Updated: 2018/11/14 18:36:01 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-void	ft_lstdel(t_flist **alst, void (*del)(void*))
+#include "fillit.h"
+
+void	ft_flstdel(t_flist **alst, void (*del)(void*))
 {
 	t_flist		*tmp;
 
