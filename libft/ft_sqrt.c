@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_sqrt.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: eschnell <eschnell@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/13 15:20:25 by eschnell     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/13 15:21:01 by eschnell    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/13 18:01:01 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,5 +20,5 @@ int		ft_sqrt(int nb)
 		return (0);
 	while ((i * i) < nb)
 		i++;
-	return ((i * i == nb) ? i : 0);
+	return ((i * i == nb) ? i : i - 1);
 }

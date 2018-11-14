@@ -6,13 +6,12 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/24 17:53:48 by eschnell     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/13 15:48:34 by eschnell    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/14 15:50:00 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "fillit.h"
-
 
 int			error(void)
 {
@@ -44,13 +43,14 @@ static char	validate_file_len(const f_list *list)
 				return (1);
 			list = list->next;
 		}
-		
 		if (i % 5 || !(p == 12 && d == 4))
+			return (1);
+		if (list->str[0] != '\n' && list->next)
 			return (1);
 		if (list->next)
 			list = list->next;
 	}
-	return (ft_strcmp(list->prev->str, "\n") ? 0 : 1);
+	return (list->prev->str[0] == '\n' ? 1 : 0);
 }
 
 /*

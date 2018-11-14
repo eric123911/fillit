@@ -6,7 +6,7 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/12 13:18:47 by matheme      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/13 16:13:50 by matheme     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/14 16:47:58 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -78,32 +78,9 @@ size_t	map_size(short d)
 	return ((res * res == (size_t)d) ? res : res + 1);
 }
 
-index_list	*ft_get_index(f_list *list)
-{
-	index_list	*lst_index;
-	index_list	*begin;
-
-	lst_index = malloc(sizeof(index_list));
-	lst_index->prev = NULL;
-	begin = lst_index;
-
-	while (list)
-	{
-		get_index_of_tetriminos(list, &lst_index->index);
-		lst_index->next = malloc(sizeof(index_list));
-		lst_index->next->prev = lst_index;
-		lst_index = lst_index->next;
-
-		list = list->next->next->next->next->next;
-	}
-	lst_index->prev->next = NULL;
-	return (begin);
-}
-
 int		main(int ac, char **av)
 {
 	f_list		*list;
-	index_list	*lst_index;
 	char		**tab;
 	size_t		line;
 	size_t		size;
@@ -117,11 +94,12 @@ int		main(int ac, char **av)
 		return (1);
 	}
 	list = ft_read(av[1], &line);
-	lst_index = ft_get_index(list);
+	if (line == 1)
+		return (error());
 	if (validate_file(list))
 		return (error());
 	size = map_size((line / 5) * 4);
-	tab = fillit(lst_index, size, 'A', ft_tab_malloc(size));
+	tab = fillit(list, size, 'A', ft_tab_malloc(size));
 	ft_put_tab(tab);
 	return (0);
 }

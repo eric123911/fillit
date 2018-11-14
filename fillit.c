@@ -6,14 +6,14 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/29 16:53:07 by matheme      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/13 16:37:32 by matheme     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/14 16:48:07 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-// la variable size correspond à la taille du carré actuel
+static size_t g_compteur = 0;
 
 char **		replace0(char **tab, int size)
 {
@@ -33,6 +33,43 @@ char **		replace0(char **tab, int size)
 		}
 	}
 	return (tab);
+}
+
+void	corr_indexXY(int (*index)[8], char z)
+{
+	if (z == 'x')
+	{
+		(*index)[1]++;
+		(*index)[3]++;
+		(*index)[5]++;
+		(*index)[7]++;
+	}
+	if (z == 'y')
+	{
+		(*index)[0]++;
+		(*index)[2]++;
+		(*index)[4]++;
+		(*index)[6]++;
+	}
+}
+
+void	corr_index(int (*index)[8])
+{
+	size_t i;
+
+	i = 0;
+	while (i < 8)
+	{
+		if ((*index)[i] < 0)
+		{
+			if (i % 2)
+				corr_indexXY(index, 'x');
+			else
+				corr_indexXY(index, 'y');
+			i = -1;
+		}
+		i++;
+	}	
 }
 
 void	get_index_of_tetriminos(const f_list *list, int (*index)[8])
@@ -99,21 +136,6 @@ char **put_down(const int index[8], char **result, size_t offset[2], char c)
 	return (result);
 }
 
-char **take_up(const int index[8], char **result, size_t offset[2])
-{
-	size_t four;
-	size_t id;
-
-	id = 0;
-	four = 4;
-	while (four--)
-	{
-		result[offset[0] + index[id]][offset[1] + index[id + 1]] = '\0';
-		id += 2;
-	}
-	return (result);
-}
-
 size_t	algorithme(const int index[8], char **result, size_t size, size_t (*offset)[2])
 {
 	size_t	res;
@@ -134,9 +156,10 @@ size_t	algorithme(const int index[8], char **result, size_t size, size_t (*offse
 	return (0);
 }
 
-char	**fillit(const index_list *list, size_t size, char c, char **result)
+char	**fillit(const f_list *list, size_t size, char c, char **result)
 {
 	size_t	offset[2];
+	int		index[8];
 	int		res;
 	char	**temp;
 
@@ -146,19 +169,22 @@ char	**fillit(const index_list *list, size_t size, char c, char **result)
 	offset[1] = 0; // x
 	if (!list)
 		return (replace0(result, size));
+	get_index_of_tetriminos(list, &index);
+	corr_index(&index);
 	while (temp == NULL &&  offset[0] < size)
 	{
-		res = algorithme(list->index, result, size, &offset);
+		g_compteur++;
+		res = algorithme(index, result, size, &offset);
 		if (res == 0)
 		{
-			result = put_down(list->index, result, offset, c);
-			if ((temp = fillit(list->next, size, c + 1, result)))
+			result = put_down(index, result, offset, c);
+			if ((temp = fillit(list->next->next->next->next->next, size, c + 1, result)))
 				return (temp);
-			result = take_up(list->index, result, offset);
+			result = put_down(index, result, offset, '\0');
 		}
 		offset[1]++;
 	}
 	if (list->prev == NULL && offset[0] >= size)
-		return (fillit(list, size + 1, 'A', ft_tab_malloc(size + 1)));
+		return(fillit(list, size + 1, 'A', ft_tab_malloc(size + 1)));
 	return (NULL);
 }

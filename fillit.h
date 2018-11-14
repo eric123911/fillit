@@ -6,7 +6,7 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/25 11:50:42 by matheme      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/13 15:50:10 by eschnell    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/14 16:47:10 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,16 +27,9 @@ typedef struct			p_list
 	struct p_list		*prev;
 }						f_list;
 
-typedef struct			i_list
-{
-	int					index[8];
-	struct i_list		*next;
-	struct i_list		*prev;
-}						index_list;
-
 int						error(void);
 char					validate_file(const f_list *list);
-char					**fillit(const index_list *lst, size_t size, char c, char **res);
+char					**fillit(const f_list *lst, size_t size, char c, char **res);
 char					**ft_tab_malloc(size_t size);
 void					get_index_of_tetriminos(const f_list *list, int (*index)[8]);
 #endif
