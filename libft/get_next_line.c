@@ -6,7 +6,7 @@
 /*   By: eschnell <eschnell@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/22 14:00:43 by eschnell     #+#   ##    ##    #+#       */
-/*   Updated: 2018/10/22 16:06:02 by eschnell    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/14 13:13:11 by eschnell    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,7 +18,7 @@ static int		ft_check_buff(t_gnline *list, char *buf, char **line)
 	char				*tmp;
 	unsigned long long	i;
 
-	tmp = strdup(*line);
+	tmp = ft_strdup(*line);
 	ft_strdel(line);
 	i = (unsigned long long)ft_strnlen(buf, '\n');
 	if (ft_strrchr(buf, '\n'))
