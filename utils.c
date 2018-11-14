@@ -6,7 +6,7 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/14 17:15:19 by matheme      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/14 17:25:31 by matheme     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/14 18:02:36 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -97,4 +97,25 @@ void		get_index_of_tetriminos(const t_flist *list, int (*index)[8])
 	}
 	(*index)[0] = 0;
 	(*index)[1] = 0;
+}
+
+t_idxlist	*ft_get_index(t_flist *list)
+{
+	t_idxlist	*lst_index;
+	t_idxlist	*begin;
+
+	lst_index = malloc(sizeof(t_idxlist));
+	lst_index->prev = NULL;
+	begin = lst_index;
+	while (list)
+	{
+		get_index_of_tetriminos(list, &lst_index->index);
+		corr_index(&lst_index->index);
+		lst_index->next = malloc(sizeof(t_idxlist));
+		lst_index->next->prev = lst_index;
+		lst_index = lst_index->next;
+		list = list->next->next->next->next->next;
+	}
+	lst_index->prev->next = NULL;
+	return (begin);
 }

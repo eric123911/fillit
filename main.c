@@ -6,12 +6,13 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/12 13:18:47 by matheme      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/14 17:26:57 by matheme     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/14 18:06:50 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "fillit.h"
+#include <stdio.h>
 
 void	ft_put_tab(char **tab)
 {
@@ -80,6 +81,7 @@ size_t	map_size(short d)
 int		main(int ac, char **av)
 {
 	t_flist		*list;
+	t_idxlist	*lst_index;
 	char		**tab;
 	size_t		line;
 	size_t		size;
@@ -97,8 +99,9 @@ int		main(int ac, char **av)
 		return (error());
 	if (validate_file(list))
 		return (error());
+	lst_index = ft_get_index(list);
 	size = map_size((line / 5) * 4);
-	tab = fillit(list, size, 'A', ft_tab_malloc(size));
+	tab = fillit(lst_index, size, 'A', ft_tab_malloc(size));
 	ft_put_tab(tab);
 	return (0);
 }

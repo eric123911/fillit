@@ -6,12 +6,13 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/29 16:53:07 by matheme      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/14 17:24:16 by matheme     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/14 18:01:04 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "fillit.h"
+#include <stdio.h>
 
 /*
 ** return == 1		si jamais un tetriminos est deja present
@@ -85,10 +86,9 @@ size_t		algo(int index[8], char **result, size_t size, size_t (*offset)[2])
 ** offset[1] -> x
 */
 
-char		**fillit(const t_flist *list, size_t size, char c, char **result)
+char		**fillit(t_idxlist *list, size_t size, char c, char **result)
 {
 	size_t	offset[2];
-	int		index[8];
 	int		res;
 	char	**temp;
 
@@ -98,18 +98,15 @@ char		**fillit(const t_flist *list, size_t size, char c, char **result)
 	offset[1] = 0;
 	if (!list)
 		return (replace0(result, size));
-	get_index_of_tetriminos(list, &index);
-	corr_index(&index);
 	while (temp == NULL && offset[0] < size)
 	{
-		res = algo(index, result, size, &offset);
+		res = algo(list->index, result, size, &offset);
 		if (res == 0)
 		{
-			result = put_down(index, result, offset, c);
-			if ((temp = fillit(list->next->next->next->next->next,
-								size, c + 1, result)))
+			result = put_down(list->index, result, offset, c);
+			if ((temp = fillit(list->next, size, c + 1, result)))
 				return (temp);
-			result = put_down(index, result, offset, '\0');
+			result = put_down(list->index, result, offset, '\0');
 		}
 		offset[1]++;
 	}
