@@ -6,7 +6,7 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/12 13:18:47 by matheme      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/14 16:47:58 by matheme     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/14 17:26:57 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,20 +30,20 @@ void	ft_put_tab(char **tab)
 	}
 }
 
-f_list	*ft_read(char *av, size_t *line)
+t_flist	*ft_read(char *av, size_t *line)
 {
 	int		f;
-	f_list	*list;
-	f_list	*begin;
+	t_flist	*list;
+	t_flist	*begin;
 
 	f = open(av, O_RDONLY);
-	list = malloc(sizeof(f_list));
+	list = malloc(sizeof(t_flist));
 	list->prev = NULL;
 	begin = list;
 	while (get_next_line(f, &list->str) > 0)
 	{
 		(*line)++;
-		list->next = malloc(sizeof(f_list));
+		list->next = (t_flist*)malloc(sizeof(t_flist));
 		list->next->prev = list;
 		list = list->next;
 	}
@@ -51,18 +51,17 @@ f_list	*ft_read(char *av, size_t *line)
 	return (begin);
 }
 
-
 char	**ft_tab_malloc(size_t size)
 {
-	size_t i;
-	char **tab;
+	size_t	i;
+	char	**tab;
 
 	i = 0;
 	if (!(tab = (char**)malloc(sizeof(char*) * (size + 1))))
 		return (NULL);
 	while (i < size)
 	{
-		if(!(tab[i] = ft_strnew(size)))
+		if (!(tab[i] = ft_strnew(size)))
 			return (NULL);
 		i++;
 	}
@@ -80,7 +79,7 @@ size_t	map_size(short d)
 
 int		main(int ac, char **av)
 {
-	f_list		*list;
+	t_flist		*list;
 	char		**tab;
 	size_t		line;
 	size_t		size;

@@ -6,102 +6,21 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/29 16:53:07 by matheme      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/14 16:48:07 by matheme     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/14 17:24:16 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-static size_t g_compteur = 0;
+/*
+** return == 1		si jamais un tetriminos est deja present
+** return == 3 		arrive au bout de l'axe des X
+** return == 2		idem pour Y
+*/
 
-char **		replace0(char **tab, int size)
-{
-	int i;
-	int j;
-
-	i = -1;
-	if (!tab)
-		return (NULL);
-	while (++i < size)
-	{
-		j = -1;
-		while (++j < size)
-		{
-			if (tab[i][j] == '\0')
-				tab[i][j] = '.';
-		}
-	}
-	return (tab);
-}
-
-void	corr_indexXY(int (*index)[8], char z)
-{
-	if (z == 'x')
-	{
-		(*index)[1]++;
-		(*index)[3]++;
-		(*index)[5]++;
-		(*index)[7]++;
-	}
-	if (z == 'y')
-	{
-		(*index)[0]++;
-		(*index)[2]++;
-		(*index)[4]++;
-		(*index)[6]++;
-	}
-}
-
-void	corr_index(int (*index)[8])
-{
-	size_t i;
-
-	i = 0;
-	while (i < 8)
-	{
-		if ((*index)[i] < 0)
-		{
-			if (i % 2)
-				corr_indexXY(index, 'x');
-			else
-				corr_indexXY(index, 'y');
-			i = -1;
-		}
-		i++;
-	}	
-}
-
-void	get_index_of_tetriminos(const f_list *list, int (*index)[8])
-{
-	size_t	four;
-	size_t	count;
-	int		i;
-	int		j;
-
-	(*index)[0] = 0;
-	(*index)[1] = 0;
-	four = 4;
-	j = 0;
-	count = 0;
-	while (four--)
-	{
-		i = -1;
-		while (list->str[++i])
-			if (list->str[i] == '#')
-			{
-				count += 2;
-				(*index)[count - 2] = j - (*index)[0];
-				(*index)[count - 1] = i - (*index)[1];
-			}
-		j++;
-		list = list->next;
-	}
-	(*index)[0] = 0;
-	(*index)[1] = 0;
-}
-
-int		can_put_down(char **result ,const int index[8],const size_t size,const size_t offset[2])
+int			can_put_down(char **result, const int index[8], const size_t size,
+						const size_t offset[2])
 {
 	size_t four;
 	size_t id;
@@ -110,18 +29,18 @@ int		can_put_down(char **result ,const int index[8],const size_t size,const size
 	id = 0;
 	while (four--)
 	{
-		if (offset[0] + index[id] >= size) // au bout de l'axe Y
+		if (offset[0] + index[id] >= size)
 			return (2);
-		else if (offset[1] + index[id + 1] >= size) // au bout de l'axe X
+		else if (offset[1] + index[id + 1] >= size)
 			return (3);
 		else if (result[offset[0] + index[id]][offset[1] + index[id + 1]])
-			return (1); // un tetriminos est déjà présent
+			return (1);
 		id += 2;
 	}
 	return (0);
 }
 
-char **put_down(const int index[8], char **result, size_t offset[2], char c)
+char		**put_down(const int index[8], char **res, size_t offset[2], char c)
 {
 	size_t four;
 	size_t id;
@@ -130,21 +49,27 @@ char **put_down(const int index[8], char **result, size_t offset[2], char c)
 	four = 4;
 	while (four--)
 	{
-		result[offset[0] + index[id]][offset[1] + index[id + 1]] = c;
+		res[offset[0] + index[id]][offset[1] + index[id + 1]] = c;
 		id += 2;
 	}
-	return (result);
+	return (res);
 }
 
-size_t	algorithme(const int index[8], char **result, size_t size, size_t (*offset)[2])
+/*
+** res == 1		si jamais un tetriminos est deja present
+** res == 3 	arrive au bout de l'axe des X
+** res == 2		idem pour Y
+*/
+
+size_t		algo(int index[8], char **result, size_t size, size_t (*offset)[2])
 {
 	size_t	res;
 
-	while ((res = can_put_down(result, index,  size, *offset)))
+	while ((res = can_put_down(result, index, size, *offset)))
 	{
-		if (res == 1) // si jamais un tetriminos est déjà present
+		if (res == 1)
 			(*offset)[1]++;
-		if (res == 3) // X
+		if (res == 3)
 		{
 			(*offset)[1] = 0;
 			(*offset)[0]++;
@@ -152,11 +77,15 @@ size_t	algorithme(const int index[8], char **result, size_t size, size_t (*offse
 		if (res == 2)
 			return (2);
 	}
-
 	return (0);
 }
 
-char	**fillit(const f_list *list, size_t size, char c, char **result)
+/*
+** offset[0] -> y
+** offset[1] -> x
+*/
+
+char		**fillit(const t_flist *list, size_t size, char c, char **result)
 {
 	size_t	offset[2];
 	int		index[8];
@@ -165,26 +94,26 @@ char	**fillit(const f_list *list, size_t size, char c, char **result)
 
 	res = 0;
 	temp = NULL;
-	offset[0] = 0; // y
-	offset[1] = 0; // x
+	offset[0] = 0;
+	offset[1] = 0;
 	if (!list)
 		return (replace0(result, size));
 	get_index_of_tetriminos(list, &index);
 	corr_index(&index);
-	while (temp == NULL &&  offset[0] < size)
+	while (temp == NULL && offset[0] < size)
 	{
-		g_compteur++;
-		res = algorithme(index, result, size, &offset);
+		res = algo(index, result, size, &offset);
 		if (res == 0)
 		{
 			result = put_down(index, result, offset, c);
-			if ((temp = fillit(list->next->next->next->next->next, size, c + 1, result)))
+			if ((temp = fillit(list->next->next->next->next->next,
+								size, c + 1, result)))
 				return (temp);
 			result = put_down(index, result, offset, '\0');
 		}
 		offset[1]++;
 	}
 	if (list->prev == NULL && offset[0] >= size)
-		return(fillit(list, size + 1, 'A', ft_tab_malloc(size + 1)));
+		return (fillit(list, size + 1, 'A', ft_tab_malloc(size + 1)));
 	return (NULL);
 }

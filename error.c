@@ -6,7 +6,7 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/24 17:53:48 by eschnell     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/14 15:50:00 by matheme     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/14 17:26:08 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,7 +24,7 @@ int			error(void)
 ** des tetriminos donnes et valide la fin du fichier
 */
 
-static char	validate_file_len(const f_list *list)
+static char	validate_file_len(const t_flist *list)
 {
 	size_t					i;
 	size_t					p;
@@ -90,7 +90,7 @@ static char	find_neighbour(char *s1, char *s2, char *s3, size_t i)
 ** Fontion qui valide les tetriminos.
 */
 
-static char	validate_patter(const f_list *list)
+static char	validate_patter(const t_flist *list)
 {
 	size_t	i;
 
@@ -124,7 +124,7 @@ static char	validate_patter(const f_list *list)
 ** de savoir si le fichier transmis et resolvable
 */
 
-char		validate_file(const f_list *list)
+char		validate_file(const t_flist *list)
 {
 	if (!list)
 		return (1);

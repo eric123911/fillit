@@ -6,7 +6,7 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/25 11:50:42 by matheme      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/14 16:47:10 by matheme     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/14 17:23:30 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,19 +17,19 @@
 # include "libft/includes/libft.h"
 # include <fcntl.h>
 
-
-# include <stdio.h>
-
-typedef struct			p_list
+typedef struct			s_flist
 {
 	char				*str;
-	struct p_list		*next;
-	struct p_list		*prev;
-}						f_list;
+	struct s_flist		*next;
+	struct s_flist		*prev;
+}						t_flist;
 
 int						error(void);
-char					validate_file(const f_list *list);
-char					**fillit(const f_list *lst, size_t size, char c, char **res);
+char					validate_file(const t_flist *list);
+char					**fillit(const t_flist *l, size_t s, char c, char **r);
 char					**ft_tab_malloc(size_t size);
-void					get_index_of_tetriminos(const f_list *list, int (*index)[8]);
+char					**replace0(char **tab, int size);
+void					corr_index_xy(int (*index)[8], char z);
+void					corr_index(int (*index)[8]);
+void					get_index_of_tetriminos(const t_flist *l, int (*i)[8]);
 #endif
