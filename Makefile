@@ -6,7 +6,7 @@
 #    By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/11/13 14:34:18 by eschnell     #+#   ##    ##    #+#        #
-#    Updated: 2018/11/14 18:30:38 by matheme     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/11/16 15:39:33 by matheme     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -17,7 +17,7 @@ CFLAGS = -Wall -Werror -Wextra
 
 NAME = fillit
 
-SRC = main.c fillit.c error.c utils.c
+SRC = main.c fillit.c error.c utils.c free_all.c
 
 OBJ = $(SRC:.c=.o)
 
