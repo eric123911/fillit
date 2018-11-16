@@ -6,7 +6,7 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/12 13:18:47 by matheme      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/16 15:59:08 by matheme     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/16 16:16:30 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -96,7 +96,7 @@ int		main(int ac, char **av)
 		return (1);
 	}
 	list = ft_read(av[1], &line);
-	if (line == 1 || validate_file(list))
+	if (line == 1 || line > 130 || validate_file(list))
 		return (error());
 	lst_index = ft_get_index(list);
 	ft_flstdel(&list, &ft_strdel);
