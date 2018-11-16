@@ -6,7 +6,7 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/25 11:50:42 by matheme      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/16 15:27:11 by matheme     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/16 16:30:16 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,7 +31,7 @@ typedef struct			s_idxlist
 	struct s_idxlist	*prev;
 }						t_idxlist;
 
-int						error(void);
+int						error(t_flist *list);
 char					validate_file(const t_flist *list);
 char					**fillit(t_idxlist *l, size_t *s, char c, char **r);
 char					**ft_tab_malloc(size_t size);

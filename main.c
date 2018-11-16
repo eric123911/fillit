@@ -6,7 +6,7 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/12 13:18:47 by matheme      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/16 16:16:30 by matheme     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/16 16:45:34 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,10 +19,7 @@ void	ft_put_tab(char **tab)
 
 	i = -1;
 	if (!tab)
-	{
-		error();
 		return ;
-	}
 	while (tab[++i])
 	{
 		ft_putstr(tab[i]);
@@ -36,14 +33,16 @@ t_flist	*ft_read(char *av, size_t *line)
 	t_flist	*list;
 
 	f = open(av, O_RDONLY);
-	list = malloc(sizeof(t_flist));
+	if (!(list = malloc(sizeof(t_flist))))
+		return (NULL);
 	list->prev = NULL;
 	list->next = NULL;
 	list->str = NULL;
 	while (get_next_line(f, &list->str) > 0)
 	{
 		(*line)++;
-		list->next = (t_flist*)malloc(sizeof(t_flist));
+		if (!(list->next = (t_flist*)malloc(sizeof(t_flist))))
+			return (NULL);
 		list->next->prev = list;
 		list = list->next;
 	}
@@ -87,6 +86,7 @@ int		main(int ac, char **av)
 	size_t		line;
 	size_t		size;
 
+	tab = NULL;
 	line = 1;
 	if (ac != 2)
 	{
@@ -97,7 +97,7 @@ int		main(int ac, char **av)
 	}
 	list = ft_read(av[1], &line);
 	if (line == 1 || line > 130 || validate_file(list))
-		return (error());
+		return (error(list));
 	lst_index = ft_get_index(list);
 	ft_flstdel(&list, &ft_strdel);
 	size = map_size((line / 5) * 4);

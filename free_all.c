@@ -6,7 +6,7 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/14 18:35:27 by matheme      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/16 15:59:59 by matheme     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/16 16:43:25 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,7 +32,7 @@ void	ft_idxlstdel(t_idxlist **alst)
 {
 	t_idxlist		*tmp;
 
-	if (!alst)
+	if (alst)
 		return ;
 	while ((*alst)->next)
 	{
@@ -49,6 +49,8 @@ void	free_tab(char ***tab, int size)
 	int i;
 
 	i = -1;
+	if (!*tab)
+		return ;
 	while (++i < size)
 	{
 		ft_strdel(&(*tab)[i]);

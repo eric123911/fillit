@@ -6,15 +6,16 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/24 17:53:48 by eschnell     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/16 15:57:57 by matheme     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/16 16:35:04 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int			error(void)
+int			error(t_flist *list)
 {
+	ft_flstdel(&list, &ft_strdel);
 	ft_putendl("error");
 	return (0);
 }
@@ -48,8 +49,7 @@ static char	validate_file_len(const t_flist *list)
 		if (list->next)
 			if (list->str[0] != '\n')
 				return (1);
-		if (list->next)
-			list = list->next;
+		list->next ? list = list->next : 0;
 	}
 	return (list->prev->str[0] == '\n' ? 1 : 0);
 }
