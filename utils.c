@@ -6,7 +6,7 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/14 17:15:19 by matheme      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/16 15:21:06 by matheme     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/16 16:02:53 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -119,7 +119,7 @@ t_idxlist	*ft_get_index(t_flist *list)
 		lst_index = lst_index->next;
 		list = list->next->next->next->next->next;
 	}
-	free(lst_index->prev->next);
 	lst_index->prev->next = NULL;
+	free(lst_index);
 	return (begin);
 }

@@ -6,7 +6,7 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/12 13:18:47 by matheme      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/16 15:26:11 by matheme     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/16 15:59:08 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,7 +47,6 @@ t_flist	*ft_read(char *av, size_t *line)
 		list->next->prev = list;
 		list = list->next;
 	}
-	free(list->str);
 	list->next = NULL;
 	while (list->prev)
 		list = list->prev;

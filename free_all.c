@@ -6,7 +6,7 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/14 18:35:27 by matheme      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/16 15:26:00 by matheme     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/16 15:59:59 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,15 +19,13 @@ void	ft_flstdel(t_flist **alst, void (*del)(char**))
 
 	if (!alst || !del)
 		return ;
-	while ((*alst)->next)
+	while (*alst)
 	{
 		tmp = (*alst)->next;
 		del(&(*alst)->str);
 		free(*alst);
 		*alst = tmp;
 	}
-	free(*alst);
-	*alst = NULL;
 }
 
 void	ft_idxlstdel(t_idxlist **alst)

@@ -6,7 +6,7 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/24 17:53:48 by eschnell     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/14 17:26:08 by matheme     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/16 15:57:57 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -45,8 +45,9 @@ static char	validate_file_len(const t_flist *list)
 		}
 		if (i % 5 || !(p == 12 && d == 4))
 			return (1);
-		if (list->str[0] != '\n' && list->next)
-			return (1);
+		if (list->next)
+			if (list->str[0] != '\n')
+				return (1);
 		if (list->next)
 			list = list->next;
 	}
