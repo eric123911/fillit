@@ -1,0 +1,41 @@
+# **************************************************************************** #
+#                                                           LE - /             #
+#                                                               /              #
+#    .gitlab-ci.yml                                   .::    .:/ .      .::    #
+#                                                  +:+:+   +:    +:  +:+:+     #
+#    By: eschnell <eschnell@student.le-101.fr>      +:+   +:    +:    +:+      #
+#                                                  #+#   #+    #+    #+#       #
+#    Created: 2018/10/21 11:42:57 by eschnell     #+#   ##    ##    #+#        #
+#    Updated: 2018/11/17 16:47:29 by eschnell    ###    #+. /#+    ###.fr      #
+#                                                          /                   #
+#                                                         /                    #
+# **************************************************************************** #
+
+variables:
+  OMNIBUS_BRANCH: 'master'
+
+image: gcc
+
+build:
+  stage: build
+  script:
+    - make
+  artifacts:
+    paths:
+      - fillit
+    expire_in: 1 week
+
+test:
+  stage: find
+  script:
+    - find . -name "fillit"
+  stage: test
+  script:
+    - ./fillit --unicode examples/valid_15
+    
+
+#deploy:
+#  stage: deploy
+#  image: curl
+#  script:
+#    - "curl -X POST -F token=4a9397dda56ea21240452825775e85 -F ref=master https://gitlab.com/api/v4/projects/9131627/trigger/pipeline"
