@@ -6,7 +6,7 @@
 #    By: eschnell <eschnell@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/21 11:42:57 by eschnell     #+#   ##    ##    #+#        #
-#    Updated: 2018/11/17 17:13:06 by eschnell    ###    #+. /#+    ###.fr      #
+#    Updated: 2018/11/17 17:14:54 by eschnell    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -18,8 +18,7 @@ image: gcc
 
 build:
   stage: build
-  script:
-    - make
+  script: make
   artifacts:
     paths:
       - fillit
@@ -30,14 +29,12 @@ test_algo:
   script:
     - find . -name "fillit"
   stage: test
-  script:
-    - ./fillit examples/valid_15
+  script: ./fillit examples/valid_15
 
 test_uni:
   extends: test_algo
   stage: test
-  script:
-    - ./fillit -u examples/valid_15
+  script: ./fillit -u examples/valid_15
 
 test_palette:
   extends: test_uni
