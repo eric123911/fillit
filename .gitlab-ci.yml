@@ -6,7 +6,7 @@
 #    By: eschnell <eschnell@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/21 11:42:57 by eschnell     #+#   ##    ##    #+#        #
-#    Updated: 2018/11/17 17:01:28 by eschnell    ###    #+. /#+    ###.fr      #
+#    Updated: 2018/11/17 17:03:12 by eschnell    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -25,7 +25,7 @@ build:
       - fillit
     expire_in: 1 week
 
-.tests:
+test:
   stage: find
   script:
     - find . -name "fillit"
