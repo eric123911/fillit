@@ -6,7 +6,7 @@
 #    By: eschnell <eschnell@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/21 11:42:57 by eschnell     #+#   ##    ##    #+#        #
-#    Updated: 2018/11/17 16:57:38 by eschnell    ###    #+. /#+    ###.fr      #
+#    Updated: 2018/11/17 17:01:28 by eschnell    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -25,13 +25,16 @@ build:
       - fillit
     expire_in: 1 week
 
-test:
+.tests:
   stage: find
   script:
     - find . -name "fillit"
   stage: test_algo
   script:
     - ./fillit examples/valid_15
+
+uni:
+  extends: .tests
   stage: test_unicode
   script:
     - ./fillit -u examples/valid_15
