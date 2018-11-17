@@ -6,7 +6,7 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/25 11:50:42 by matheme      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/16 19:49:27 by eschnell    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/17 17:33:39 by eschnell    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,7 +14,7 @@
 #ifndef FILLIT_H
 # define FILLIT_H
 
-# include "libft/includes/libft.h"
+# include "../libft/includes/libft.h"
 # include <fcntl.h>
 
 typedef struct			s_flist

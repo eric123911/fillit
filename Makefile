@@ -6,38 +6,35 @@
 #    By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/11/13 14:34:18 by eschnell     #+#   ##    ##    #+#        #
-#    Updated: 2018/11/16 20:20:44 by eschnell    ###    #+. /#+    ###.fr      #
+#    Updated: 2018/11/17 17:36:11 by eschnell    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
 
-CC = gcc
-
-CFLAGS = -Wall -Werror -Wextra
-
-NAME = fillit
-
-SRC = main.c fillit.c error.c utils.c free_all.c option.c unicode.c
-
-OBJ = $(SRC:.c=.o)
+NAME	= fillit
+CC		= gcc
+FLAGS	= -Wall -Werror -Wextra
+CFLAGS	= $(FLAGS) -Iincludes
+LIB		= libft/libft.a
+SRCS	:= $(wildcard $(addsuffix *.c,src/))
+OBJS	:= $(patsubst %.c,%.o,$(SRCS))
 
 
-all: lib $(NAME)
+all: $(LIB) $(NAME)
 
-$(NAME): $(OBJ)
-		$(CC) -I. -o $(NAME) $(OBJ) -Llibft -lft
+$(NAME): $(OBJS)
+		$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -Llibft -lft
 
-$(OBJ):
-		$(CC) $(CFLAGS) -c $(SRC)
+$(OBJS): %.o : %.c
 
-lib:
-		make -C libft/ re
-		make -C libft/ clean
+$(LIB):
+		@make -C libft/ re
+		@make -C libft/ clean
 
 clean:
-		rm -f *.o
+		rm -f src/*.o
 
 fclean: clean
-		rm -f $(NAME) libft/libft.a
+		rm -f $(NAME) $(LIB)
 
 re: fclean all
