@@ -6,7 +6,7 @@
 #    By: eschnell <eschnell@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/21 11:42:57 by eschnell     #+#   ##    ##    #+#        #
-#    Updated: 2018/11/17 17:10:21 by eschnell    ###    #+. /#+    ###.fr      #
+#    Updated: 2018/11/17 17:13:06 by eschnell    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -38,6 +38,11 @@ test_uni:
   stage: test
   script:
     - ./fillit -u examples/valid_15
+
+test_palette:
+  extends: test_uni
+  stage: test
+  script: ./fillit -p
 
 #deploy:
 #  stage: deploy
