@@ -6,7 +6,7 @@
 /*   By: eschnell <eschnell@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/16 15:54:31 by eschnell     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/19 13:48:29 by matheme     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/19 18:59:07 by eschnell    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,8 +31,8 @@
 /*
 ** Square unicode.
 */
-# define _SQU	"\u1F3B"
-# define _VOID	ft_putstr("\e[38;5;237m\u1F3B")
+# define _SQU	"\u2588" //"\u1F3B"
+# define _VOID	ft_putstr("\e[38;5;0m\u2588")
 # define _A		ft_putstr("\e[38;5;9m")
 # define _B		ft_putstr("\e[38;5;226m")
 # define _C		ft_putstr("\e[38;5;88m")
