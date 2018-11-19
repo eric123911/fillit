@@ -6,7 +6,7 @@
 /*   By: matheme <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/19 13:47:28 by matheme      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/19 13:51:58 by matheme     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/19 16:01:56 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -84,6 +84,7 @@ int					ft_put_uni(const char *path, char **tab)
 			print_uni(line);
 		close(fd);
 	}
+	_0;
 	return (1);
 }
 

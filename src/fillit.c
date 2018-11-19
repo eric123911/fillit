@@ -6,7 +6,7 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/29 16:53:07 by matheme      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/19 13:55:50 by matheme     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/19 18:17:39 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,39 +19,27 @@
 ** return == 2		idem pour Y
 */
 
-int			can_put_down(char **result, const int index[8], const size_t size,
-						const size_t offset[2])
+static char		can_put_down(char **result, const int idx[10],
+		const size_t offset[2])
 {
-	size_t four;
-	size_t id;
+	ssize_t id;
 
-	four = 4;
 	id = 0;
-	while (four--)
+	while (id <= 6)
 	{
-		if (offset[0] + index[id] >= size)
-			return (2);
-		else if (offset[1] + index[id + 1] >= size)
-			return (3);
-		else if (result[offset[0] + index[id]][offset[1] + index[id + 1]])
+		if (result[offset[0] + idx[id]][offset[1] + idx[id + 1]])
 			return (1);
 		id += 2;
 	}
 	return (0);
 }
 
-char		**put_down(const int index[8], char **res, size_t offset[2], char c)
+static char		**put_down(const int idx[10], char **res, size_t ofs[2], char c)
 {
-	size_t four;
-	size_t id;
-
-	id = 0;
-	four = 4;
-	while (four--)
-	{
-		res[offset[0] + index[id]][offset[1] + index[id + 1]] = c;
-		id += 2;
-	}
+	res[ofs[0] + idx[0]][ofs[1] + idx[1]] = c;
+	res[ofs[0] + idx[2]][ofs[1] + idx[3]] = c;
+	res[ofs[0] + idx[4]][ofs[1] + idx[5]] = c;
+	res[ofs[0] + idx[6]][ofs[1] + idx[7]] = c;
 	return (res);
 }
 
@@ -61,23 +49,24 @@ char		**put_down(const int index[8], char **res, size_t offset[2], char c)
 ** res == 2		idem pour Y
 */
 
-size_t		algo(int index[8], char **result, size_t size, size_t (*offset)[2])
+static t_bool	algo(int idx[10], char **result, size_t size, size_t (*ofs)[2])
 {
 	size_t	res;
 
-	while ((res = can_put_down(result, index, size, *offset)))
+	res = 1;
+	while (res)
 	{
-		if (res == 1)
-			(*offset)[1]++;
-		else if (res == 3)
+		if ((*ofs)[0] + idx[8] >= size)
+			return (false);
+		else if ((*ofs)[1] + idx[9] >= size)
 		{
-			(*offset)[1] = 0;
-			(*offset)[0]++;
+			(*ofs)[1] = 0;
+			(*ofs)[0]++;
 		}
-		else
-			return (2);
+		else if ((res = can_put_down(result, idx, *ofs)))
+			(*ofs)[1]++;
 	}
-	return (0);
+	return (true);
 }
 
 /*
@@ -85,28 +74,24 @@ size_t		algo(int index[8], char **result, size_t size, size_t (*offset)[2])
 ** offset[1] -> x
 */
 
-char		**fillit(t_idxlist *list, size_t *size, char c, char **result)
+char			**fillit(t_idxlist *list, size_t *size, char c, char **result)
 {
 	size_t	offset[2];
 	char	**temp;
 
-	temp = NULL;
 	offset[0] = 0;
 	offset[1] = 0;
 	if (!list || !result)
 		return (replace0(result, *size));
-	while (temp == NULL && offset[0] < *size)
+	while (!algo(list->index, result, *size, &offset))
 	{
-		if (algo(list->index, result, *size, &offset) == 0)
-		{
-			result = put_down(list->index, result, offset, c);
-			if ((temp = fillit(list->next, size, c + 1, result)))
-				return (temp);
-			result = put_down(list->index, result, offset, '\0');
-		}
+		result = put_down(list->index, result, offset, c);
+		if ((temp = fillit(list->next, size, c + 1, result)))
+			return (temp);
+		result = put_down(list->index, result, offset, '\0');
 		offset[1]++;
 	}
-	if (list->prev == NULL && offset[0] >= *size)
+	if (list->prev == NULL && offset[0] + list->index[8] >= *size)
 	{
 		free_tab(&result, (*size)++);
 		return (fillit(list, size, 'A', ft_tab_malloc(*size)));

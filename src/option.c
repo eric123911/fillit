@@ -6,7 +6,7 @@
 /*   By: eschnell <eschnell@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/16 17:28:16 by eschnell     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/19 12:52:17 by matheme     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/19 18:16:51 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,7 +14,15 @@
 #include "fillit.h"
 #include "unicode.h"
 
-int	parse_opt2(t_fopt store, int i, char **args)
+size_t	map_size(short d)
+{
+	size_t	res;
+
+	res = ft_sqrt(d);
+	return ((res * res == (size_t)d) ? res : res + 1);
+}
+
+int		parse_opt2(t_fopt store, int i, char **args)
 {
 	if (i == 2)
 		ft_put_tab(store.tab, 1);
@@ -30,7 +38,7 @@ int	parse_opt2(t_fopt store, int i, char **args)
 	return (1);
 }
 
-int	parse_opt(int i, char **args)
+int		parse_opt(int i, char **args)
 {
 	t_fopt		store;
 	t_idxlist	*lst_idx;

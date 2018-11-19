@@ -6,34 +6,14 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/14 17:15:19 by matheme      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/19 09:48:53 by matheme     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/19 17:54:03 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-char		**replace0(char **tab, int size)
-{
-	int	i;
-	int j;
-
-	i = -1;
-	if (!tab)
-		return (NULL);
-	while (++i < size)
-	{
-		j = -1;
-		while (++j < size)
-		{
-			if (tab[i][j] == '\0')
-				tab[i][j] = '.';
-		}
-	}
-	return (tab);
-}
-
-void		corr_index_xy(int (*index)[8], char z)
+void		corr_index_xy(int (*index)[10], char z)
 {
 	if (z == 'x')
 	{
@@ -51,7 +31,7 @@ void		corr_index_xy(int (*index)[8], char z)
 	}
 }
 
-void		corr_index(int (*index)[8])
+void		corr_index(int (*index)[10])
 {
 	size_t i;
 
@@ -70,7 +50,24 @@ void		corr_index(int (*index)[8])
 	}
 }
 
-void		get_index_of_tetriminos(const t_flist *list, int (*index)[8])
+void		get_xmax_ymax(int (*index)[10])
+{
+	int i;
+
+	i = 0;
+	(*index)[8] = 0;
+	(*index)[9] = 0;
+	while (i < 8)
+	{
+		if (i % 2 && (*index)[i] > (*index)[9])
+			(*index)[9] = (*index)[i];
+		else if ((*index)[i] > (*index)[8])
+			(*index)[8] = (*index)[i];
+		i++;
+	}
+}
+
+void		get_index_of_tetriminos(const t_flist *list, int (*index)[10])
 {
 	size_t	four;
 	size_t	count;
@@ -113,6 +110,7 @@ t_idxlist	*ft_get_index(t_flist *list)
 	{
 		get_index_of_tetriminos(list, &lst_index->index);
 		corr_index(&lst_index->index);
+		get_xmax_ymax(&lst_index->index);
 		if (!(lst_index->next = (t_idxlist*)malloc(sizeof(t_idxlist))))
 			return (NULL);
 		lst_index->next->prev = lst_index;

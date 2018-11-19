@@ -6,7 +6,7 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/12 13:18:47 by matheme      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/19 09:48:34 by matheme     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/19 18:17:02 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -67,12 +67,24 @@ char	**ft_tab_malloc(size_t size)
 	return (tab);
 }
 
-size_t	map_size(short d)
+char	**replace0(char **tab, int size)
 {
-	size_t	res;
+	int	i;
+	int j;
 
-	res = ft_sqrt(d);
-	return ((res * res == (size_t)d) ? res : res + 1);
+	i = -1;
+	if (!tab)
+		return (NULL);
+	while (++i < size)
+	{
+		j = -1;
+		while (++j < size)
+		{
+			if (tab[i][j] == '\0')
+				tab[i][j] = '.';
+		}
+	}
+	return (tab);
 }
 
 /*

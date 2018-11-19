@@ -6,18 +6,18 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/24 17:53:48 by eschnell     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/19 09:47:54 by matheme     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/19 17:29:01 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int			error(t_flist *list)
+t_bool			error(t_flist *list)
 {
 	ft_flstdel(&list, &ft_strdel);
 	ft_putendl("error");
-	return (0);
+	return (true);
 }
 
 /*
@@ -25,11 +25,11 @@ int			error(t_flist *list)
 ** des tetriminos donnes et valide la fin du fichier
 */
 
-static char	validate_file_len(const t_flist *list)
+static t_bool	validate_file_len(const t_flist *list)
 {
-	size_t					i;
-	size_t					p;
-	size_t					d;
+	size_t	i;
+	size_t	p;
+	size_t	d;
 
 	i = 0;
 	while (list->next)
@@ -41,17 +41,17 @@ static char	validate_file_len(const t_flist *list)
 			p += ft_strccount(list->str, '.');
 			d += ft_strccount(list->str, '#');
 			if (ft_strlen(list->str) != 5)
-				return (1);
+				return (false);
 			list = list->next;
 		}
 		if (i % 5 || !(p == 12 && d == 4))
-			return (1);
+			return (false);
 		if (list->next)
 			if (list->str[0] != '\n')
-				return (1);
+				return (false);
 		list->next ? list = list->next : 0;
 	}
-	return (list->prev->str[0] == '\n' ? 1 : 0);
+	return (list->prev->str[0] == '\n' ? false : true);
 }
 
 /*
@@ -59,7 +59,7 @@ static char	validate_file_len(const t_flist *list)
 ** qui valide les dieses voisines.
 */
 
-static char	find_neighbour(char *s1, char *s2, char *s3, size_t i)
+static t_bool	find_neighbour(char *s1, char *s2, char *s3, size_t i)
 {
 	static size_t	n = 0;
 	static size_t	count = 0;
@@ -79,19 +79,19 @@ static char	find_neighbour(char *s1, char *s2, char *s3, size_t i)
 			if (s3[i] == '#')
 				n++;
 		count++;
-		if (count % 4 == 0 && !(n == 6 || n == 8))
-			return (1);
-		if (n >= 6 && count % 4 == 0)
+		if (!(count % 4) && !(n == 6 || n == 8))
+			return (false);
+		if (n >= 6 && !(count % 4))
 			n = 0;
 	}
-	return (0);
+	return (true);
 }
 
 /*
 ** Fontion qui valide les tetriminos.
 */
 
-static char	validate_patter(const t_flist *list)
+static t_bool	validate_patter(const t_flist *list)
 {
 	size_t	i;
 
@@ -104,20 +104,20 @@ static char	validate_patter(const t_flist *list)
 			{
 				if (find_neighbour(list->prev->str,
 									list->str, list->next->str, i))
-					return (1);
+					return (false);
 			}
 			else if (list->prev)
 			{
 				if (find_neighbour(list->prev->str, list->str, NULL, i))
-					return (1);
+					return (false);
 			}
 			else if (find_neighbour(NULL, list->str, list->next->str, i))
-				return (1);
+				return (false);
 			i++;
 		}
 		list = list->next;
 	}
-	return (0);
+	return (true);
 }
 
 /*
@@ -125,14 +125,14 @@ static char	validate_patter(const t_flist *list)
 ** de savoir si le fichier transmis et resolvable
 */
 
-char		validate_file(const t_flist *list)
+t_bool			validate_file(const t_flist *list)
 {
 	if (!list)
-		return (1);
+		return (false);
 	else if (validate_file_len(list))
-		return (1);
+		return (false);
 	else if (validate_patter(list))
-		return (1);
+		return (false);
 	else
-		return (0);
+		return (true);
 }
