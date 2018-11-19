@@ -6,7 +6,7 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/29 16:53:07 by matheme      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/19 09:48:04 by matheme     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/19 13:55:50 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -69,12 +69,12 @@ size_t		algo(int index[8], char **result, size_t size, size_t (*offset)[2])
 	{
 		if (res == 1)
 			(*offset)[1]++;
-		if (res == 3)
+		else if (res == 3)
 		{
 			(*offset)[1] = 0;
 			(*offset)[0]++;
 		}
-		if (res == 2)
+		else
 			return (2);
 	}
 	return (0);
