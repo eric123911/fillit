@@ -6,7 +6,7 @@
 /*   By: eschnell <eschnell@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/16 17:28:16 by eschnell     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/16 20:05:52 by eschnell    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/19 12:52:17 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,7 +32,7 @@ int	parse_opt2(t_fopt store, int i, char **args)
 
 int	parse_opt(int i, char **args)
 {
-	t_fopt	store;
+	t_fopt		store;
 	t_idxlist	*lst_idx;
 	size_t		line;
 

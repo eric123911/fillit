@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   unicode.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: eschnell <eschnell@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: matheme <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/11/16 14:17:57 by eschnell     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/16 20:22:04 by eschnell    ###    #+. /#+    ###.fr     */
+/*   Created: 2018/11/19 13:47:28 by matheme      #+#   ##    ##    #+#       */
+/*   Updated: 2018/11/19 13:51:58 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,7 +14,7 @@
 #include "fillit.h"
 #include "unicode.h"
 
-static void	print_uni2(const char *s, size_t i)
+static void			print_uni2(const char *s, size_t i)
 {
 	*(s + i) == 'N' ? _N : 0;
 	*(s + i) == 'O' ? _O : 0;
@@ -29,10 +29,11 @@ static void	print_uni2(const char *s, size_t i)
 	*(s + i) == 'X' ? _X : 0;
 	*(s + i) == 'Y' ? _Y : 0;
 	*(s + i) == 'Z' ? _Z : 0;
-	!ft_isalpha(*(s + i)) && *(s + i) != '\n' ? _VOID : 0;
+	*(s + i) == '.' ? _VOID : 0;
+	*(s + i) != '\n' && *(s + i) != '.' ? ft_putstr(_SQU) : 0;
 }
 
-static void	print_uni(const char *s)
+static void			print_uni(const char *s)
 {
 	size_t	i;
 
@@ -58,12 +59,12 @@ static void	print_uni(const char *s)
 	ft_putendl("");
 }
 
-static int		ft_create_tmp(const char *path, char **tab)
+static int			ft_create_tmp(const char *path, char **tab)
 {
 	int fd;
 
 	if ((fd = open(path, O_RDWR | O_CREAT
-				   | O_TRUNC, 00644)) == -1)
+				| O_TRUNC, 00644)) == -1)
 		return (error(NULL));
 	else
 		ft_put_tab(tab, fd);
@@ -71,14 +72,13 @@ static int		ft_create_tmp(const char *path, char **tab)
 	return (1);
 }
 
-int				ft_put_uni(const char *path, char **tab)
+int					ft_put_uni(const char *path, char **tab)
 {
 	char	*line;
 	int		fd;
 
 	if (ft_create_tmp(path, tab))
 	{
-
 		fd = open(path, O_RDWR);
 		while (get_next_line(fd, &line))
 			print_uni(line);
@@ -87,36 +87,26 @@ int				ft_put_uni(const char *path, char **tab)
 	return (1);
 }
 
-
-int		ft_put_palette(void)
+int					ft_put_palette(void)
 {
+	char	c;
+	char	*str;
+
+	c = 'A';
 	ft_putendl("The currently in-use palette :");
 	ft_putendl("");
-	ft_putstr("A: "), print_uni("AAA"), _0;
-	ft_putstr("B: "), print_uni("BBB"), _0;
-	ft_putstr("C: "), print_uni("CCC"), _0;
-	ft_putstr("D: "), print_uni("DDD"), _0;
-	ft_putstr("E: "), print_uni("EEE"), _0;
-	ft_putstr("F: "), print_uni("FFF"), _0;
-	ft_putstr("G: "), print_uni("GGG"), _0;
-	ft_putstr("H: "), print_uni("HHH"), _0;
-	ft_putstr("I: "), print_uni("III"), _0;
-	ft_putstr("J: "), print_uni("JJJ"), _0;
-	ft_putstr("K: "), print_uni("KKK"), _0;
-	ft_putstr("L: "), print_uni("LLL"), _0;
-	ft_putstr("M: "), print_uni("MMM"), _0;
-	ft_putstr("N: "), print_uni("NNN"), _0;
-	ft_putstr("O: "), print_uni("OOO"), _0;
-	ft_putstr("P: "), print_uni("PPP"), _0;
-	ft_putstr("Q: "), print_uni("QQQ"), _0;
-	ft_putstr("R: "), print_uni("RRR"), _0;
-	ft_putstr("S: "), print_uni("SSS"), _0;
-	ft_putstr("T: "), print_uni("TTT"), _0;
-	ft_putstr("U: "), print_uni("UUU"), _0;
-	ft_putstr("V: "), print_uni("VVV"), _0;
-	ft_putstr("W: "), print_uni("WWW"), _0;
-	ft_putstr("X: "), print_uni("XXX"), _0;
-	ft_putstr("Y: "), print_uni("YYY"), _0;
-	ft_putstr("Z: "), print_uni("ZZZ"), _0;
+	while (c <= 'Z')
+	{
+		ft_putchar(c);
+		ft_putstr(": ");
+		str = ft_strnew(3);
+		str[0] = c;
+		str[1] = c;
+		str[2] = c;
+		print_uni(str);
+		_0;
+		c++;
+	}
+	free(str);
 	return (0);
 }
