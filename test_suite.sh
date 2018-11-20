@@ -20,7 +20,7 @@ if [[ ($excut != "./fillit") ]]; then
 fi
 
 excut=$(ls ${NOM_FICHIER_EXECT})
-j=1
+j=0
 echo
 for i in $test_files; do
 	echo "\033[31m+-------------------------------+"
@@ -32,11 +32,11 @@ for i in $test_files; do
 	echo "+-------------------------------+\033[0m"
 	echo $excut $i
 	echo OUTPUT:
-	eval $excut $i
-	echo
-	echo $excut -u $i
-	echo OUTPUT:
-	eval $exect -u $i
+	eval time $excut $i
+#	echo
+#	echo $excut -u $i
+#	echo OUTPUT:
+#	eval $exect -u $i
 	echo "--------------------"
 	let j+=1
 done

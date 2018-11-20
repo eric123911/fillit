@@ -6,7 +6,7 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/12 13:18:47 by matheme      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/20 14:14:04 by matheme     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/20 17:26:03 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -87,21 +87,52 @@ char	**replace0(char **tab, int size)
 	return (tab);
 }
 
+int		main(int ac, char **av)
+{
+	t_flist		*list;
+	t_idxlist	*lst_index;
+	char		**tab;
+	size_t		line;
+	size_t		size;
+
+	line = 1;
+	if (ac != 2)
+	{
+		ft_putstr("usage: ");
+		ft_putstr(av[0]);
+		ft_putendl(" file_name");
+		return (1);
+	}
+	list = ft_read(av[1], &line);
+	if (line == 1 || line > 130 || validate_file(list))
+		return (error(list));
+	lst_index = ft_get_index(list);
+	ft_flstdel(&list, &ft_strdel);
+	size = map_size((line / 5) * 4);
+	tab = fillit(lst_index, &size, 'A', ft_tab_malloc(size));
+	ft_idxlstdel(&lst_index);
+	ft_put_tab(tab, 1);
+	free_tab(&tab, size);
+	return (0);
+}
+
 /*
 ** Instructions du main déplacées vers
 ** la fonction `parse_opt`
 ** (dans le fichier option.c)
 */
 
-int		main(int ac, char **av)
-{
-	if (ac < 2 || ac > 3)
-	{
-		ft_putstr("usage: ");
-		ft_putstr(av[0]);
-		ft_putendl(" [-u | --unicode] [-p | --palette] file_name");
-		return (1);
-	}
-	parse_opt(ac, av);
-	return (0);
-}
+/*
+** int		main(int ac, char **av)
+**{
+**	if (ac < 2 || ac > 3)
+**	{
+**		ft_putstr("usage: ");
+**		ft_putstr(av[0]);
+**		ft_putendl(" [-u | --unicode] [-p | --palette] file_name");
+**		return (1);
+**	}
+**	parse_opt(ac, av);
+**	return (0);
+**}
+*/
