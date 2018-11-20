@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   option.c                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: eschnell <eschnell@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/16 17:28:16 by eschnell     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/19 18:16:51 by matheme     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/20 15:52:18 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,6 +36,23 @@ int		parse_opt2(t_fopt store, int i, char **args)
 	}
 	free_tab(&store.tab, store.size);
 	return (1);
+}
+
+void	ft_put_idxlist(t_idxlist *lst)
+{
+	int i;
+
+	while (lst->next)
+	{
+		i = -1;
+		while (++i < 8)
+			ft_putnbr(lst->index[i]);
+		ft_putchar(' ');
+		ft_putnbr(lst->index[8]);
+		ft_putnbr(lst->index[9]);
+		ft_putchar('\n');
+		lst = lst->next;
+	}
 }
 
 int		parse_opt(int i, char **args)
