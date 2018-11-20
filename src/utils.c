@@ -6,7 +6,7 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/14 17:15:19 by matheme      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/20 15:38:44 by matheme     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/20 17:17:35 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,16 +61,14 @@ void		get_xmax_ymax(int (*index)[10])
 	{
 		if ((*index)[i] > (*index)[8])
 			(*index)[8] = (*index)[i];
-
-		i+= 2;
+		i += 2;
 	}
 	i = 1;
 	while (i < 9)
 	{
 		if ((*index)[i] > (*index)[9])
 			(*index)[9] = (*index)[i];
-
-		i+= 2;
+		i += 2;
 	}
 }
 

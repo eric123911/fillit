@@ -6,7 +6,7 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/29 16:53:07 by matheme      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/20 15:57:06 by matheme     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/20 17:17:54 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,18 +20,15 @@
 ** return == 2		idem pour Y
 */
 
-static char		can_put_down(char **result, const int idx[10],
+static t_bool	can_put_down(char **result, const int idx[10],
 	const size_t offset[2])
 {
-	if (result[offset[0] + idx[0]][offset[1] + idx[1]] != '.')
-		return (1);
-	else if (result[offset[0] + idx[2]][offset[1] + idx[3]] != '.')
-		return (1);		
-	else if (result[offset[0] + idx[4]][offset[1] + idx[5]] != '.')
-		return (1);		
-	else if (result[offset[0] + idx[6]][offset[1] + idx[7]] != '.')
-		return (1);
-	return (0);
+	if (result[offset[0] + idx[0]][offset[1] + idx[1]] != '.' ||
+		result[offset[0] + idx[2]][offset[1] + idx[3]] != '.' ||
+		result[offset[0] + idx[4]][offset[1] + idx[5]] != '.' ||
+		result[offset[0] + idx[6]][offset[1] + idx[7]] != '.')
+		return (false);
+	return (true);
 }
 
 static char		**put_down(const int idx[10], char **res, size_t ofs[2], char c)
@@ -64,7 +61,7 @@ static t_bool	algo(int idx[10], char **result, size_t size, size_t (*ofs)[2])
 			(*ofs)[0]++;
 		}
 		else if ((res = can_put_down(result, idx, *ofs)))
-		(*ofs)[1]++;
+			(*ofs)[1]++;
 	}
 	return (true);
 }
